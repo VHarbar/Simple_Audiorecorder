@@ -12,7 +12,15 @@ Recorder::Recorder(QWidget *parent)
     , ui(new Ui::Recorder)
 {
     ui->setupUi(this);
+    audioRecorder = new QAudioRecorder(this);
+    QAudioEncoderSettings recordSettings;
+    recordSettings.setCodec("audio/pcm");
+    recordSettings.setSampleRate(16000);
+    recordSettings.setBitRate(32);
+    recordSettings.setQuality(QMultimedia::HighQuality);
+    recordSettings.setEncodingMode(QMultimedia::ConstantQualityEncoding);
     connect(ui->chosser, &QPushButton::clicked, this, &Recorder::b_autoChoose);
+    audioRecorder->setEncodingSettings(recordSettings);
 }
 
 Recorder::~Recorder()
@@ -25,4 +33,5 @@ void Recorder::b_autoChoose()
     foreach (auto i, info) qDebug() <<i.deviceName();
     audioRecorder->setAudioInput(audioRecorder->defaultAudioInput());
 }
+
 
