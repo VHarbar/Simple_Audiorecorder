@@ -50,7 +50,7 @@
      <string>||</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="b_record">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -61,6 +61,19 @@
     </property>
     <property name="text">
      <string>|&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b_del">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>130</y>
+      <width>41</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>DEL</string>
     </property>
    </widget>
   </widget>

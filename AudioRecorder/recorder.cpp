@@ -1,10 +1,9 @@
 #include "recorder.h"
 #include "ui_recorder.h"
 #include <QAudioDeviceInfo>
-#include <QAudio>
 #include<QAudioRecorder>
-#include<QAudioInput>
 #include<QUrl>
+#include<QDir>
 
 
 Recorder::Recorder(QWidget *parent)
@@ -21,6 +20,14 @@ Recorder::Recorder(QWidget *parent)
     recordSettings.setEncodingMode(QMultimedia::ConstantQualityEncoding);
     connect(ui->chosser, &QPushButton::clicked, this, &Recorder::b_autoChoose);
     audioRecorder->setEncodingSettings(recordSettings);
+    QString path=("\D:\\test\\");
+    QDir currentDir(path);
+    QStringList items = currentDir.entryList(QDir::AllEntries |QDir::NoDotAndDotDot);
+    ui->listWidget->addItems(items);
+    connect(ui->chosser,&QPushButton::clicked,this,&Recorder::b_autoChoose);
+    connect(ui->b_record,&QPushButton::clicked,this,&Recorder::record);
+    connect(ui->b_stop,&QPushButton::clicked,this,&Recorder::stop_record);
+    connect(ui->b_del,&QPushButton::clicked,this,&Recorder::deleting);
 }
 
 Recorder::~Recorder()
@@ -32,6 +39,22 @@ void Recorder::b_autoChoose()
     auto info = QAudioDeviceInfo::availableDevices(QAudio::AudioInput);
     foreach (auto i, info) qDebug() <<i.deviceName();
     audioRecorder->setAudioInput(audioRecorder->defaultAudioInput());
+    audioRecorder->setOutputLocation(QUrl::fromLocalFile("/D:/test/"));
+}
+
+void Recorder::record()
+{
+    audioRecorder->record();
+}
+
+void Recorder::stop_record()
+{
+    audioRecorder->stop();
+}
+
+void Recorder::deleting()
+{
+
 }
 
 

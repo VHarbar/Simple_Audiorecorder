@@ -18,6 +18,9 @@ public:
     ~Recorder();
 public slots:
     void b_autoChoose();
+    void record();
+    void stop_record();
+    void deleting();
 
 private:
     Ui::Recorder *ui;
